@@ -10,6 +10,7 @@ import {
   Paper,
   Select,
   MenuItem,
+  Button,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     "text-align": "left",
+  },
+  button: {
+    margin: theme.spacing(1),
   },
 }));
 
@@ -74,7 +78,7 @@ const expenseSubcategories = {
 };
 
 const PurchaseForm = () => {
-  const classes = useStyles();
+  const { paper, title, input, select, button } = useStyles();
 
   const [purchaseName, setPurchaseName] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState("");
@@ -84,22 +88,38 @@ const PurchaseForm = () => {
     disabled: true,
     subcategory: "",
   });
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   useEffect(() => {
     purchaseCategory !== "" &&
       setPurchaseSubcategory({ ...purchaseSubcategory, disabled: false });
   }, [purchaseCategory]);
 
-  console.log("purchaseCategory", purchaseCategory);
-  console.log("purchaseSubcategory", purchaseSubcategory.subcategory);
+  useEffect(() => {
+    if (
+      purchaseName &&
+      purchaseAmount &&
+      purchaseDate &&
+      purchaseCategory &&
+      purchaseSubcategory
+    ) {
+      setIsSubmitDisabled(false);
+    }
+  }, [
+    purchaseName,
+    purchaseAmount,
+    purchaseDate,
+    purchaseCategory,
+    purchaseSubcategory,
+  ]);
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={paper}>
       <form noValidate autoComplete="off">
-        <Typography variant="h5" className={classes.title} gutterbottom="true">
+        <Typography variant="h5" className={title} gutterbottom="true">
           Add Purchase to Database
         </Typography>
-        <FormControl className={classes.input}>
+        <FormControl className={input}>
           <InputLabel htmlFor="purchase-name" shrink>
             Purchase Name
           </InputLabel>
@@ -109,7 +129,7 @@ const PurchaseForm = () => {
             onChange={(e) => setPurchaseName(e.target.value)}
           />
         </FormControl>
-        <FormControl className={classes.input}>
+        <FormControl className={input}>
           <InputLabel htmlFor="category" shrink>
             Category
           </InputLabel>
@@ -117,7 +137,7 @@ const PurchaseForm = () => {
             id="category"
             value={purchaseCategory}
             onChange={(e) => setPurchaseCategory(e.target.value)}
-            className={classes.select}
+            className={select}
           >
             {expenseCategories.map((category) => (
               <MenuItem key={category.value} value={category.value}>
@@ -126,7 +146,7 @@ const PurchaseForm = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl className={classes.input}>
+        <FormControl className={input}>
           <InputLabel htmlFor="subcategory" shrink>
             Subcategory
           </InputLabel>
@@ -139,7 +159,7 @@ const PurchaseForm = () => {
                 subcategory: e.target.value,
               })
             }
-            className={classes.select}
+            className={select}
             disabled={purchaseSubcategory.disabled}
           >
             {!purchaseSubcategory.disabled &&
@@ -160,9 +180,9 @@ const PurchaseForm = () => {
           KeyboardButtonProps={{
             "aria-label": "change date",
           }}
-          className={classes.input}
+          className={input}
         />
-        <FormControl className={classes.input}>
+        <FormControl className={input}>
           <InputLabel htmlFor="purchase-amount">Amount</InputLabel>
           <Input
             id="purchase-amount"
@@ -171,6 +191,17 @@ const PurchaseForm = () => {
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
           />
         </FormControl>
+        <Button
+          variant="contained"
+          color="primary"
+          className={button}
+          disabled={isSubmitDisabled}
+        >
+          Submit
+        </Button>
+        <Button variant="contained" className={button}>
+          Cancel
+        </Button>
       </form>
     </Paper>
   );
