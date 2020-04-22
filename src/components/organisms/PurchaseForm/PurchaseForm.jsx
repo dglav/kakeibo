@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   InputLabel,
@@ -32,13 +32,65 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const expenseCategories = [
+  {
+    value: "dayToDay",
+    text: "Day to Day",
+  },
+  {
+    value: "fixed",
+    text: "Fixed",
+  },
+  {
+    value: "savings",
+    text: "Savings",
+  },
+];
+
+const expenseSubcategories = {
+  dayToDay: [
+    { value: "disposable", text: "Disposable" },
+    { value: "foodAndHealth", text: "Food and Health" },
+    { value: "transportation", text: "Transportation" },
+    { value: "hairCut", text: "Hair Cut" },
+  ],
+  fixed: [
+    { value: "rent", text: "Rent" },
+    { value: "cellPhone", text: "Cell Phone" },
+    { value: "gym", text: "Gym" },
+    { value: "netflix", text: "Netflix" },
+  ],
+  savings: [
+    { value: "presents", text: "Presents" },
+    { value: "computer", text: "Computer" },
+    { value: "clothes", text: "Clothes" },
+    { value: "stuff", text: "Stuff" },
+    { value: "cellPhone", text: "Cell Phone" },
+    { value: "hairTreatment", text: "Hair Treatment" },
+    { value: "travel", text: "Travel" },
+    { value: "emergency", text: "Emergency" },
+  ],
+};
+
 const PurchaseForm = () => {
   const classes = useStyles();
 
   const [purchaseName, setPurchaseName] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState("");
   const [purchaseDate, setPurchaseDate] = useState(new Date());
-  const [purchaseType, setPurchaseType] = useState("");
+  const [purchaseCategory, setPurchaseCategory] = useState("");
+  const [purchaseSubcategory, setPurchaseSubcategory] = useState({
+    disabled: true,
+    subcategory: "",
+  });
+
+  useEffect(() => {
+    purchaseCategory !== "" &&
+      setPurchaseSubcategory({ ...purchaseSubcategory, disabled: false });
+  }, [purchaseCategory]);
+
+  console.log("purchaseCategory", purchaseCategory);
+  console.log("purchaseSubcategory", purchaseSubcategory.subcategory);
 
   return (
     <Paper className={classes.paper}>
@@ -57,18 +109,44 @@ const PurchaseForm = () => {
           />
         </FormControl>
         <FormControl className={classes.input}>
-          <InputLabel htmlFor="purchase-type" shrink>
-            Purchase Type
+          <InputLabel htmlFor="category" shrink>
+            Category
           </InputLabel>
           <Select
-            id="purchase-type"
-            value={purchaseType}
-            onChange={(e) => setPurchaseType(e.target.value)}
+            id="category"
+            value={purchaseCategory}
+            onChange={(e) => setPurchaseCategory(e.target.value)}
             className={classes.select}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {expenseCategories.map((category) => (
+              <MenuItem key={category.value} value={category.value}>
+                {category.text}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.input}>
+          <InputLabel htmlFor="subcategory" shrink>
+            Subcategory
+          </InputLabel>
+          <Select
+            id="subcategory"
+            value={purchaseSubcategory.subcategory}
+            onChange={(e) =>
+              setPurchaseSubcategory({
+                ...purchaseSubcategory,
+                subcategory: e.target.value,
+              })
+            }
+            className={classes.select}
+            disabled={purchaseSubcategory.disabled}
+          >
+            {!purchaseSubcategory.disabled &&
+              expenseSubcategories[purchaseCategory].map((subcategory) => (
+                <MenuItem key={subcategory.value} value={subcategory.value}>
+                  {subcategory.text}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
         <KeyboardDatePicker
