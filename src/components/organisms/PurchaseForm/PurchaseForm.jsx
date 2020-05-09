@@ -86,14 +86,14 @@ const PurchaseForm = () => {
   const [purchaseCategory, setPurchaseCategory] = useState("");
   const [purchaseSubcategory, setPurchaseSubcategory] = useState({
     disabled: true,
-    subcategory: "",
+    value: "",
   });
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   useEffect(() => {
     purchaseCategory !== "" &&
       setPurchaseSubcategory({ ...purchaseSubcategory, disabled: false });
-  }, [purchaseCategory]);
+  }, [purchaseCategory, purchaseSubcategory]);
 
   useEffect(() => {
     if (
@@ -101,9 +101,11 @@ const PurchaseForm = () => {
       purchaseAmount &&
       purchaseDate &&
       purchaseCategory &&
-      purchaseSubcategory
+      purchaseSubcategory.value
     ) {
       setIsSubmitDisabled(false);
+    } else {
+      setIsSubmitDisabled(true);
     }
   }, [
     purchaseName,
@@ -152,11 +154,11 @@ const PurchaseForm = () => {
           </InputLabel>
           <Select
             id="subcategory"
-            value={purchaseSubcategory.subcategory}
+            value={purchaseSubcategory.value}
             onChange={(e) =>
               setPurchaseSubcategory({
                 ...purchaseSubcategory,
-                subcategory: e.target.value,
+                value: e.target.value,
               })
             }
             className={select}
@@ -196,6 +198,15 @@ const PurchaseForm = () => {
           color="primary"
           className={button}
           disabled={isSubmitDisabled}
+          onClick={() =>
+            uploadPurchase({
+              purchaseName,
+              purchaseAmount,
+              purchaseDate,
+              purchaseCategory,
+              purchaseSubcategory: purchaseSubcategory.value,
+            })
+          }
         >
           Submit
         </Button>
