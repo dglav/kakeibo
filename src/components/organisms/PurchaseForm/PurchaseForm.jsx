@@ -116,6 +116,28 @@ const PurchaseForm = () => {
     purchaseSubcategory,
   ]);
 
+  function reset() {
+    setPurchaseName("");
+    setPurchaseAmount("");
+    setPurchaseDate(new Date());
+    setPurchaseSubcategory({
+      disabled: true,
+      value: "",
+    });
+    setPurchaseCategory("");
+  }
+
+  async function handleSubmit() {
+    const success = await uploadPurchase({
+      purchaseName,
+      purchaseAmount,
+      purchaseDate,
+      purchaseCategory,
+      purchaseSubcategory: purchaseSubcategory.value,
+    });
+    success ? reset() : alert("Save failed.");
+  }
+
   return (
     <Paper className={paper}>
       <form noValidate autoComplete="off">
@@ -199,15 +221,7 @@ const PurchaseForm = () => {
           color="primary"
           className={button}
           disabled={isSubmitDisabled}
-          onClick={() =>
-            uploadPurchase({
-              purchaseName,
-              purchaseAmount,
-              purchaseDate,
-              purchaseCategory,
-              purchaseSubcategory: purchaseSubcategory.value,
-            })
-          }
+          onClick={handleSubmit}
         >
           Submit
         </Button>
