@@ -93,7 +93,8 @@ const PurchaseForm = () => {
   useEffect(() => {
     purchaseCategory !== "" &&
       setPurchaseSubcategory({ ...purchaseSubcategory, disabled: false });
-  }, [purchaseCategory, purchaseSubcategory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [purchaseCategory]);
 
   useEffect(() => {
     if (
