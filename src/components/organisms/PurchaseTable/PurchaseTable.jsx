@@ -27,7 +27,6 @@ export default function PurchaseTable() {
     getPurchases().then((purchases) => setPurchases(purchases));
   }, []);
 
-  console.log("purchases in render", purchases);
   return (
     <TableContainer component={Paper} className={tableContainer}>
       <Table className={table} aria-label="simple table">
