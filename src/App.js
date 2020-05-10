@@ -7,6 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Container } from "@material-ui/core";
 
 import Header from "./components/organisms/Header/Header";
+import PurchaseTable from "./components/organisms/PurchaseTable/PurchaseTable";
 import PurchaseForm from "./components/organisms/PurchaseForm/PurchaseForm";
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         <CssBaseline />
         <Header />
         <Container>
-          <PurchaseForm />
+          <PurchaseTable />
         </Container>
       </MuiPickersUtilsProvider>
     </div>

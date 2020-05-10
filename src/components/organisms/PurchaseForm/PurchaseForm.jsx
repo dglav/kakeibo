@@ -129,11 +129,11 @@ const PurchaseForm = () => {
 
   async function handleSubmit() {
     const success = await uploadPurchase({
-      purchaseName,
-      purchaseAmount,
-      purchaseDate,
-      purchaseCategory,
-      purchaseSubcategory: purchaseSubcategory.value,
+      name: purchaseName,
+      price: purchaseAmount,
+      date: purchaseDate,
+      category: purchaseCategory,
+      subcategory: purchaseSubcategory.value,
     });
     success ? reset() : alert("Save failed.");
   }

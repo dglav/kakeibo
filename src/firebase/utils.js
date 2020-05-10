@@ -27,3 +27,32 @@ export async function uploadPurchase(purchase) {
     return "failure";
   }
 }
+
+export async function getPurchases() {
+  try {
+    const username = "Drew";
+    const userRef = await getUserRef(username);
+    let purchases = [];
+    await userRef
+      .collection("purchases")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((purchase) => {
+          const purchaseData = purchase.data();
+          const date = purchaseData.date.toDate();
+          purchases.push({
+            ...purchaseData,
+            date:
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate(),
+          });
+        });
+      });
+    return purchases;
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar className={classes.root}>
         <IconButton
           edge="start"
           className={classes.menuButton}
