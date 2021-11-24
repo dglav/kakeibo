@@ -14,7 +14,7 @@ const Home: NextPage = () => {
     <Provider value={client}>
       <Layout>
         <Center mt="4">
-          <NextLink href="/new-purchase">
+          <NextLink href="/transactions/new">
             <Link>Add New Purchase</Link>
           </NextLink>
         </Center>

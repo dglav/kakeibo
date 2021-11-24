@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { NextPage } from "next";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {
   Center,
   Stack,
@@ -21,7 +21,7 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 const format = (val: string) => val + "円";
 const parse = (val: string) => val.replace(/^\$/, "");
 
-const NewPurchase: NextPage = () => {
+const NewTransactionPage: NextPage = () => {
   const [value, setValue] = useState("1000");
   const [selectedDate, setDateChange] = useState<MaterialUiPickersDate>(
     new Date()
@@ -32,12 +32,12 @@ const NewPurchase: NextPage = () => {
       <Center mt="4">
         <Stack w="100%">
           <FormControl id="name">
-            <FormLabel>Purchase Title</FormLabel>
+            <FormLabel>Name</FormLabel>
             <Input type="name" isRequired />
-            <FormHelperText>What did you purchase?</FormHelperText>
+            <FormHelperText>What was the transaction?</FormHelperText>
           </FormControl>
           <FormControl id="amount">
-            <FormLabel>Purchase Title</FormLabel>
+            <FormLabel>Amount</FormLabel>
             <NumberInput
               type="amount"
               defaultValue={1000}
@@ -71,7 +71,9 @@ const NewPurchase: NextPage = () => {
               value={selectedDate}
               onChange={(newDate) => setDateChange(newDate)}
             />
-            <FormHelperText>What date was this purchase made?</FormHelperText>
+            <FormHelperText>
+              What date was this transaction made?
+            </FormHelperText>
           </FormControl>
         </Stack>
       </Center>
@@ -79,4 +81,4 @@ const NewPurchase: NextPage = () => {
   );
 };
 
-export default NewPurchase;
+export default NewTransactionPage;
