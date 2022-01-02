@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import NextLink from "next/link";
 import { Center, Link } from "@chakra-ui/react";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import TransactionList from "../components/TransactionList";
 
 const Home: NextPage = () => {

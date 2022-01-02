@@ -1,45 +1,21 @@
 import { VStack } from "@chakra-ui/react";
-import { useQuery } from "urql";
+import { useTransactions } from "../hooks/useTransactions";
 import Transaction from "./Transaction";
 
-export type Transaction = {
-  id: number;
-  type: string;
-  name: string;
-  amount: number;
-  currency: string;
-  envelopeId: number;
-  date: number;
-  createdAt: number;
-  updatedAt: number;
-};
-
-const TransactionsQuery = `
-  query {
-    transactions {
-      id
-      name
-      amount
-      date
-    }
-  }
-`;
-
 const TransactionList = (): React.ReactElement => {
-  const [result, reexecuteQuery] = useQuery({
-    query: TransactionsQuery,
-  });
+  const { isLoading, error, data } = useTransactions();
 
-  const { data, fetching, error } = result;
-
-  if (fetching) return <p>Loading...</p>;
+  if (!isLoading && !data) return <p>Not fetching and no data...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
   return (
     <VStack spacing={8}>
-      {data.transactions.map((transaction: Transaction) => (
-        <Transaction key={transaction.id} transaction={transaction} />
-      ))}
+      {data?.map((transaction) =>
+        !transaction ? null : (
+          <Transaction key={transaction.id} transaction={transaction} />
+        )
+      )}
     </VStack>
   );
 };

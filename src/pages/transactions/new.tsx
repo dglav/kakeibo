@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import type { NextPage } from "next";
-import { useMutation } from "urql";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import {
   Center,
   Stack,
@@ -20,18 +19,9 @@ import {
 } from "@chakra-ui/react";
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { Transaction } from "../../components/TransactionList";
+import { Transaction } from "../../api/queries/getTransactions";
 
-type TransactionInput = Omit<Transaction, "id" | "createdAt" | "updatedAt">;
-
-const AddTransaction = `
-  mutation ($transaction: TransactionInput!) {
-    addTransaction (transaction: $transaction) {
-      id
-      name
-    }
-  }
-`;
+type TransactionDto = Omit<Transaction, "id" | "createdAt" | "updatedAt">;
 
 type TransactionForm = {
   type: string;
@@ -44,18 +34,19 @@ type TransactionForm = {
 
 const NewTransactionPage: NextPage = () => {
   const { register, control, setValue, handleSubmit } = useForm();
-  const [_, addTransaction] = useMutation<TransactionInput>(AddTransaction);
+  // const [_, addTransaction] = useAddTransactionMutation();
   const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
   const onSubmit: SubmitHandler<TransactionForm> = (data) => {
-    const transaction: TransactionInput = {
+    const transaction: TransactionDto = {
       name: data.name,
-      type: "withdrawal",
+      type: "WITHDRAWL",
       amount: data.amount,
       currency: "JPY",
-      envelopeId: Number(data.envelopeId),
-      date: data.date.getTime(),
+      envelopeId: data.envelopeId,
+      date: data.date.toISOString(),
     };
-    addTransaction({ transaction });
+    console.log({ transaction });
+    // addTransaction({ transaction });
   };
 
   useEffect(() => {
