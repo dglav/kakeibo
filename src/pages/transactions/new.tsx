@@ -19,9 +19,8 @@ import {
 } from "@chakra-ui/react";
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { Transaction } from "../../api/queries/getTransactions";
-
-type TransactionDto = Omit<Transaction, "id" | "createdAt" | "updatedAt">;
+import { TransactionDto } from "../../types";
+import { useAddTransactionMutation } from "../../hooks/useAddTransactionMutation";
 
 type TransactionForm = {
   type: string;
@@ -34,10 +33,11 @@ type TransactionForm = {
 
 const NewTransactionPage: NextPage = () => {
   const { register, control, setValue, handleSubmit } = useForm();
-  // const [_, addTransaction] = useAddTransactionMutation();
+  const mutation = useAddTransactionMutation();
   const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
+
   const onSubmit: SubmitHandler<TransactionForm> = (data) => {
-    const transaction: TransactionDto = {
+    const transactionDto: TransactionDto = {
       name: data.name,
       type: "WITHDRAWL",
       amount: data.amount,
@@ -45,9 +45,16 @@ const NewTransactionPage: NextPage = () => {
       envelopeId: data.envelopeId,
       date: data.date.toISOString(),
     };
-    console.log({ transaction });
-    // addTransaction({ transaction });
+    mutation.mutate(transactionDto);
   };
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      window.alert("successfully wrote data!");
+    } else if (mutation.isError) {
+      window.alert("failed writing data");
+    }
+  }, [mutation]);
 
   useEffect(() => {
     register("date");
@@ -120,7 +127,13 @@ const NewTransactionPage: NextPage = () => {
                 What date was this transaction made?
               </FormHelperText>
             </FormControl>
-            <Button mt={4} bgColor="tomato" textColor="white" type="submit">
+            <Button
+              mt={4}
+              bgColor="tomato"
+              textColor="white"
+              type="submit"
+              isLoading={mutation.isLoading}
+            >
               Submit
             </Button>
           </form>
