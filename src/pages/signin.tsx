@@ -11,7 +11,7 @@ import {
   Stack,
   theme,
 } from "@chakra-ui/react";
-import Layout from "../components/Layout";
+import { Layout } from "../components/Layout";
 import { useForm } from "react-hook-form";
 import { useUser } from "../hooks/useUser";
 

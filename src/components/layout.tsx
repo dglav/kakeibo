@@ -1,9 +1,12 @@
-import type { FC } from "react";
 import { Heading, Container, Text, Button, theme } from "@chakra-ui/react";
 import { useUser } from "../hooks/useUser";
 import { useRouter } from "next/router";
 
-const Layout: FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+export const Layout = ({ children }: Props): React.ReactElement => {
   const { result, signOut } = useUser();
   const router = useRouter();
 
@@ -43,5 +46,3 @@ const Layout: FC = ({ children }) => {
     </>
   );
 };
-
-export default Layout;
