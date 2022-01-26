@@ -1,18 +1,21 @@
 import type { NextPage } from "next";
 import NextLink from "next/link";
-import { Center, Link } from "@chakra-ui/react";
+import { Box, Center, Link } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import TransactionList from "../components/TransactionList";
+import { useUser } from "../hooks/useUser";
 
 const Home: NextPage = () => {
+  const { result } = useUser();
+
   return (
     <Layout>
-      <Center mt="4">
+      <Center>
         <NextLink href="/transactions/new">
           <Link>Add New Purchase</Link>
         </NextLink>
       </Center>
-      <TransactionList />
+      {result.isSuccess ? <TransactionList /> : <Box>Not logged in</Box>}
     </Layout>
   );
 };

@@ -1,12 +1,12 @@
 import { format } from "date-fns";
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { Transaction } from "../api/queries/getTransactions";
+import { Transaction } from "../types";
 
 type Props = {
   transaction: Transaction;
 };
 
-const Transaction = ({ transaction }: Props): React.ReactElement => {
+const TransactionCard = ({ transaction }: Props): React.ReactElement => {
   return (
     <Box key={transaction.id} shadow="md" width="100%" padding={4}>
       <Heading pb={2}>{transaction.name}</Heading>
@@ -16,4 +16,4 @@ const Transaction = ({ transaction }: Props): React.ReactElement => {
   );
 };
 
-export default Transaction;
+export default TransactionCard;

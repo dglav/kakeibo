@@ -1,13 +1,45 @@
 import type { FC } from "react";
-import { Heading, Container } from "@chakra-ui/react";
+import { Heading, Container, Text, Button, theme } from "@chakra-ui/react";
+import { useUser } from "../hooks/useUser";
+import { useRouter } from "next/router";
 
 const Layout: FC = ({ children }) => {
+  const { result, signOut } = useUser();
+  const router = useRouter();
+
   return (
     <>
-      <Heading p="4" bg="tomato" color="white">
-        Money Manager
+      <Heading
+        p="4"
+        bg={theme.colors.green[400]}
+        color="white"
+        display="flex"
+        justifyContent="space-between"
+      >
+        <Text>Money Manager</Text>
+        {result.isSuccess ? (
+          <Button
+            bg={theme.colors.green[600]}
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Sign Out
+          </Button>
+        ) : (
+          <Button
+            bg={theme.colors.green[600]}
+            onClick={() => {
+              router.push("/signin");
+            }}
+          >
+            Sign In
+          </Button>
+        )}
       </Heading>
-      <Container maxW="container.sm">{children}</Container>
+      <Container maxW="container.sm" mt={4}>
+        {children}
+      </Container>
     </>
   );
 };

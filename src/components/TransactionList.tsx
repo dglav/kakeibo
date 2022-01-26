@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/react";
-import { useTransactions } from "../hooks/useTransactions";
-import Transaction from "./Transaction";
+import { useTransactions } from "../hooks/transactions.hooks";
+import TransactionCard from "./TransactionCard";
 
 const TransactionList = (): React.ReactElement => {
   const { isLoading, error, data } = useTransactions();
@@ -13,7 +13,7 @@ const TransactionList = (): React.ReactElement => {
     <VStack spacing={8}>
       {data?.map((transaction) =>
         !transaction ? null : (
-          <Transaction key={transaction.id} transaction={transaction} />
+          <TransactionCard key={transaction.id} transaction={transaction} />
         )
       )}
     </VStack>
