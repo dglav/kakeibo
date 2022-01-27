@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/react";
-import { useTransactions } from "../hooks/transactions.hooks";
-import TransactionCard from "./TransactionCard";
+import { useTransactions } from "hooks/transactions.hooks";
+import TransactionCard from "components/TransactionCard";
 
 const TransactionList = (): React.ReactElement => {
   const { isLoading, error, data } = useTransactions();

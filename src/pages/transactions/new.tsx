@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import type { NextPage } from "next";
-import Layout from "../../components/Layout";
+import { Layout } from "components/Layout";
 import {
   Center,
   Stack,
@@ -19,8 +19,8 @@ import {
 } from "@chakra-ui/react";
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { TransactionDto } from "../../types";
-import { useAddTransactionMutation } from "../../hooks/useAddTransactionMutation";
+import { TransactionDto } from "types";
+import { useAddTransactionMutation } from "hooks/useAddTransactionMutation";
 
 type TransactionForm = {
   type: string;

@@ -1,5 +1,5 @@
 import { Heading, Container, Text, Button, theme } from "@chakra-ui/react";
-import { useUser } from "../hooks/useUser";
+import { useUser } from "hooks/useUser";
 import { useRouter } from "next/router";
 
 type Props = {
