@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
-console.log("process.env.API_URL", process.env.API_URL);
 const BASE_URL = process.env.API_URL;
+console.log({ BASE_URL });
 
 axios.interceptors.request.use(
   (config) => {
