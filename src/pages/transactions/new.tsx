@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import type { NextPage } from "next";
-import { Layout } from "components/Layout";
 import {
   Center,
   Stack,
@@ -20,6 +19,7 @@ import {
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { TransactionDto } from "types";
+import { Layout } from "components/layout";
 import { useAddTransactionMutation } from "hooks/useAddTransactionMutation";
 
 type TransactionForm = {
