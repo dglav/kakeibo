@@ -5,7 +5,7 @@ export async function addTransaction(
   transactionDto: TransactionDto
 ): Promise<Transaction> {
   const response = await axios
-    .post(`${process.env.API_URL}/transactions`, transactionDto)
+    .post(`${process.env.NEXT_PUBLIC_API_URL}/transactions`, transactionDto)
     .catch(() => {
       throw new Error("Failed to post!");
     });
