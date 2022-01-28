@@ -1,6 +1,7 @@
 import { Heading, Container, Text, Button, theme } from "@chakra-ui/react";
 import { useUser } from "hooks/useUser";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 type Props = {
   children: React.ReactNode;
@@ -19,7 +20,9 @@ export const Layout = ({ children }: Props): React.ReactElement => {
         display="flex"
         justifyContent="space-between"
       >
-        <Text>Money Manager</Text>
+        <Link href="/" passHref>
+          <Text cursor="pointer">Money Manager</Text>
+        </Link>
         {result.isSuccess ? (
           <Button
             bg={theme.colors.green[600]}
