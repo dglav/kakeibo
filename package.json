@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "ts": "tsc --noEmit --incremental --preserveWatchOutput --pretty",
+    "ts:watch": "yarn ts --watch",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

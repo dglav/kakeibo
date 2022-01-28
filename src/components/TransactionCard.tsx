@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { Transaction } from "types";
+import { Transaction } from "services/transactions.service";
 
 type Props = {
   transaction: Transaction;
