@@ -18,9 +18,10 @@ import {
 } from "@chakra-ui/react";
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { TransactionDto } from "types";
+import { TransactionDto } from "services/transactions.service";
 import { Layout } from "components/layout";
-import { useAddTransactionMutation } from "hooks/useAddTransactionMutation";
+import { useAddTransactionMutation } from "hooks/transactions.hooks";
+import { useRouter } from "next/router";
 
 type TransactionForm = {
   type: string;
@@ -35,6 +36,7 @@ const NewTransactionPage: NextPage = () => {
   const { register, control, setValue, handleSubmit } = useForm();
   const mutation = useAddTransactionMutation();
   const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<TransactionForm> = (data) => {
     const transactionDto: TransactionDto = {
@@ -50,11 +52,11 @@ const NewTransactionPage: NextPage = () => {
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      window.alert("successfully wrote data!");
+      router.push("/");
     } else if (mutation.isError) {
       window.alert("failed writing data");
     }
-  }, [mutation]);
+  }, [mutation, router]);
 
   useEffect(() => {
     register("date");

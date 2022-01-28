@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import type { NextPage } from "next";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import {
   Button,
@@ -68,7 +67,7 @@ const SignInPage: NextPage = () => {
             <FormErrorMessage>Password is required.</FormErrorMessage>
           </FormControl>
           <Button type="submit" bg={theme.colors.green[400]} color="white">
-            <NextLink href="/login">Login</NextLink>
+            Sign In
           </Button>
         </Stack>
       </form>

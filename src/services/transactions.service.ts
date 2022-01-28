@@ -1,4 +1,4 @@
-import { get } from "./base-http.service";
+import { get, post } from "./base-http.service";
 
 type TransactionType = "DEPOSIT" | "WITHDRAWL";
 
@@ -23,5 +23,13 @@ export type TransactionDto = Omit<
 
 export async function getTransactions(): Promise<Transaction[]> {
   const response = await get("transactions");
+  return response.data;
+}
+
+export async function addTransaction(
+  transactionDto: TransactionDto
+): Promise<Transaction> {
+  const response = await post("transactions", transactionDto);
+
   return response.data;
 }
