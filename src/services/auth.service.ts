@@ -13,7 +13,7 @@ export async function signIn(signInCredentialsDto: SignInCredentialsDto) {
 
 export async function getUser() {
   const response = await get("auth/user");
-  return response.data?.user;
+  return response.data;
 }
 
 export function signOut() {

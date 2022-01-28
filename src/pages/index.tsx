@@ -10,12 +10,18 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <Center>
-        <NextLink href="/transactions/new">
-          <Link>Add New Purchase</Link>
-        </NextLink>
-      </Center>
-      {result.isSuccess ? <TransactionList /> : <Box>Not logged in</Box>}
+      {result.isSuccess ? (
+        <>
+          <Center>
+            <NextLink href="/transactions/new">
+              <Link>Add New Purchase</Link>
+            </NextLink>
+          </Center>
+          <TransactionList />
+        </>
+      ) : (
+        <Box>Not logged in</Box>
+      )}
     </Layout>
   );
 };
