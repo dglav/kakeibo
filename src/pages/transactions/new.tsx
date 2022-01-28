@@ -22,6 +22,7 @@ import { TransactionDto } from "services/transactions.service";
 import { Layout } from "components/layout";
 import { useAddTransactionMutation } from "hooks/transactions.hooks";
 import { useRouter } from "next/router";
+import { withAuthentication } from "../../containers/withAuthentication";
 
 type TransactionForm = {
   type: string;
@@ -145,4 +146,4 @@ const NewTransactionPage: NextPage = () => {
   );
 };
 
-export default NewTransactionPage;
+export default withAuthentication(NewTransactionPage);
