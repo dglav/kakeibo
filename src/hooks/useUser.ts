@@ -12,7 +12,7 @@ export function useUser(): {
   result: UseQueryResult<any, unknown>;
 } {
   const queryClient = useQueryClient();
-  const result = useQuery("user", getUser, { enabled: false });
+  const result = useQuery("user", getUser, { retry: 3 });
 
   const handleSignOut = async () => {
     signOut();
