@@ -23,7 +23,7 @@ axios.interceptors.request.use(
 
 export async function get(path: string): Promise<AxiosResponse<any, any>> {
   return axios.get(`${BASE_URL}/${path}`).catch((error) => {
-    throw new Error(`Failed to post! Error: ${error}`);
+    return Promise.reject(error);
   });
 }
 
@@ -32,7 +32,7 @@ export async function post(
   payload: any
 ): Promise<AxiosResponse<any, any>> {
   return axios.post(`${BASE_URL}/${path}`, payload).catch((error) => {
-    throw new Error(`Failed to post! Error: ${error}`);
+    return Promise.reject(error);
   });
 }
 

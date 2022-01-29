@@ -8,20 +8,30 @@ import { useUser } from "hooks/useUser";
 const Home: NextPage = () => {
   const { result } = useUser();
 
+  if (result.isLoading) {
+    return (
+      <Layout>
+        <Box>Loading...</Box>
+      </Layout>
+    );
+  }
+
+  if (result.isSuccess) {
+    return (
+      <Layout>
+        <Center>
+          <NextLink href="/transactions/new">
+            <Link>Add New Purchase</Link>
+          </NextLink>
+        </Center>
+        <TransactionList />
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      {result.isSuccess ? (
-        <>
-          <Center>
-            <NextLink href="/transactions/new">
-              <Link>Add New Purchase</Link>
-            </NextLink>
-          </Center>
-          <TransactionList />
-        </>
-      ) : (
-        <Box>Not logged in</Box>
-      )}
+      <Box>Log in to see transactions</Box>
     </Layout>
   );
 };
