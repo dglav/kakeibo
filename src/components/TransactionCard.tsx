@@ -8,9 +8,10 @@ type Props = {
 
 const TransactionCard = ({ transaction }: Props): React.ReactElement => {
   return (
-    <Box key={transaction.id} shadow="md" width="100%" padding={4}>
+    <Box shadow="md" width="100%" padding={4}>
       <Heading pb={2}>{transaction.name}</Heading>
       <Text>Amount: {transaction.amount}</Text>
+      <Text>Envelope: {transaction.envelope?.name ?? "Unknown Envelope"}</Text>
       <Text>Date: {format(new Date(transaction.date), "yyyy/MM/dd")}</Text>
     </Box>
   );

@@ -6,7 +6,6 @@ import {
   Stack,
   FormControl,
   FormLabel,
-  FormHelperText,
   Input,
   NumberInput,
   NumberInputField,
@@ -29,7 +28,7 @@ type TransactionForm = {
   name: string;
   amount: number;
   currency: string;
-  envelopeId: string;
+  envelopeName: string;
   date: Date;
 };
 
@@ -45,7 +44,7 @@ const NewTransactionPage: NextPage = () => {
       type: "WITHDRAWL",
       amount: data.amount,
       currency: "JPY",
-      envelopeId: data.envelopeId,
+      envelopeName: data.envelopeName,
       date: data.date.toISOString(),
     };
     mutation.mutate(transactionDto);
@@ -82,7 +81,6 @@ const NewTransactionPage: NextPage = () => {
                 isRequired
                 {...register("name", { required: true })}
               />
-              <FormHelperText>What was the transaction?</FormHelperText>
             </FormControl>
             <FormControl id="amount">
               <FormLabel>Amount</FormLabel>
@@ -101,22 +99,21 @@ const NewTransactionPage: NextPage = () => {
                   </NumberInput>
                 )}
               />
-              <FormHelperText>How much was it?</FormHelperText>
             </FormControl>
             <FormControl>
               <FormLabel>Envelope</FormLabel>
               <Select
                 placeholder="Select option"
                 isRequired
-                {...register("envelopeId", { required: true })}
+                {...register("envelopeName", { required: true })}
               >
-                <option value={1}>Option 1</option>
-                <option value={2}>Option 2</option>
-                <option value={3}>Option 3</option>
+                <option value="Disposable Income">Disposable Income</option>
+                <option value="Education">Education</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Presents">Presents</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Investments">Investments</option>
               </Select>
-              <FormHelperText>
-                Which envelope would you like to pull from?
-              </FormHelperText>
             </FormControl>
             <FormControl>
               <FormLabel>Date</FormLabel>
@@ -126,9 +123,6 @@ const NewTransactionPage: NextPage = () => {
                   setDate(newDate);
                 }}
               />
-              <FormHelperText>
-                What date was this transaction made?
-              </FormHelperText>
             </FormControl>
             <Button
               mt={4}

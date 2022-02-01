@@ -10,16 +10,23 @@ export type Transaction = {
   type: TransactionType;
   amount: number;
   currency: TransactionCurrency;
-  envelopeId: string;
+  envelope?: {
+    id: string;
+    name: string;
+  };
   date: string;
   createdAt: string;
   updatedAt: string;
 };
 
-export type TransactionDto = Omit<
-  Transaction,
-  "id" | "createdAt" | "updatedAt"
->;
+export type TransactionDto = {
+  name: string;
+  type: TransactionType;
+  amount: number;
+  currency: TransactionCurrency;
+  envelopeName: string;
+  date: string;
+};
 
 export async function getTransactions(): Promise<Transaction[]> {
   const response = await get("transactions");
