@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
-import { Envelope } from "../services/envelopes.service";
+import { Envelope } from "../../services/envelopes.service";
 
 type Props = {
   envelope: Envelope;
