@@ -8,7 +8,7 @@ type Props = {
 export const EnvelopeCard = ({ envelope }: Props): React.ReactElement => {
   return (
     <Box shadow="md" width="100%" padding={4}>
-      <Text>Name: {envelope.name}</Text>
+      <Text>{envelope.name}</Text>
     </Box>
   );
 };

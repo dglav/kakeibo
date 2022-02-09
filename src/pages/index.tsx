@@ -1,8 +1,18 @@
 import type { NextPage } from "next";
 import NextLink from "next/link";
-import { Box, Center, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Link,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import { Layout } from "components/layout";
-import TransactionList from "components/TransactionList";
+import { TransactionList } from "components/TransactionList";
+import { EnvelopeList } from "components/EnvelopeList";
 import { useUser } from "hooks/useUser";
 
 const Home: NextPage = () => {
@@ -19,12 +29,25 @@ const Home: NextPage = () => {
   if (result.isSuccess) {
     return (
       <Layout>
-        <Center>
-          <NextLink href="/transactions/new">
-            <Link>Add New Purchase</Link>
-          </NextLink>
-        </Center>
-        <TransactionList />
+        <Tabs isFitted variant="enclosed">
+          <TabList mb="1em">
+            <Tab>Purchases</Tab>
+            <Tab>Envelopes</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Center>
+                <NextLink href="/transactions/new">
+                  <Link>Add New Purchase</Link>
+                </NextLink>
+              </Center>
+              <TransactionList />
+            </TabPanel>
+            <TabPanel>
+              <EnvelopeList />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </Layout>
     );
   }

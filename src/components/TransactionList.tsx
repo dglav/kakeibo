@@ -2,7 +2,7 @@ import { VStack } from "@chakra-ui/react";
 import { useTransactions } from "hooks/transactions.hooks";
 import TransactionCard from "components/TransactionCard";
 
-const TransactionList = (): React.ReactElement => {
+export const TransactionList = (): React.ReactElement => {
   const { isLoading, error, data } = useTransactions();
 
   if (!isLoading && !data) return <p>Not fetching and no data...</p>;
@@ -19,5 +19,3 @@ const TransactionList = (): React.ReactElement => {
     </VStack>
   );
 };
-
-export default TransactionList;
