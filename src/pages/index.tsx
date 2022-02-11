@@ -54,7 +54,9 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <Box>Log in to see transactions</Box>
+      <Center>
+        <Box>Log in to see transactions</Box>
+      </Center>
     </Layout>
   );
 };
