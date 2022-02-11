@@ -11,6 +11,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.5",
     "@chakra-ui/react": "^1.6.10",
     "@date-io/date-fns": "1.x",
     "@emotion/react": "^11",
