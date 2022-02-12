@@ -12,11 +12,7 @@ import { useGetEnvelopes } from "../../hooks/envelopes.hooks";
 import { withAuthentication } from "../../containers/withAuthentication";
 
 const NewTransactionPage: NextPage = () => {
-  const {
-    isLoading: isLoadingEnvelopes,
-    error: envelopesError,
-    data: envelopes,
-  } = useGetEnvelopes();
+  const { data: envelopes } = useGetEnvelopes();
   const mutation = useAddTransactionMutation();
   const { isError, isLoading, isSuccess, mutate } = mutation;
 
