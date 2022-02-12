@@ -22,6 +22,7 @@ import { Layout } from "components/layout";
 import { useAddTransactionMutation } from "hooks/transactions.hooks";
 import { useRouter } from "next/router";
 import { withAuthentication } from "../../containers/withAuthentication";
+import { useGetEnvelopes } from "../../hooks/envelopes.hooks";
 
 type TransactionForm = {
   type: string;
@@ -33,6 +34,11 @@ type TransactionForm = {
 };
 
 const NewTransactionPage: NextPage = () => {
+  const {
+    isLoading: isLoadingEnvelopes,
+    error: envelopesError,
+    data: envelopes,
+  } = useGetEnvelopes();
   const { register, control, setValue, handleSubmit } = useForm();
   const mutation = useAddTransactionMutation();
   const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
@@ -69,71 +75,74 @@ const NewTransactionPage: NextPage = () => {
     });
   }, [setValue, date]);
 
+  const canRenderForm = !isLoadingEnvelopes && !envelopesError;
+
   return (
     <Layout>
       <Center mt="4">
         <Stack w="100%">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl id="name">
-              <FormLabel>Name</FormLabel>
-              <Input
-                type="name"
-                isRequired
-                {...register("name", { required: true })}
-              />
-            </FormControl>
-            <FormControl id="amount">
-              <FormLabel>Amount</FormLabel>
-              <Controller
-                name="amount"
-                control={control}
-                defaultValue={1000}
-                rules={{ required: true, min: 1 }}
-                render={({ field }) => (
-                  <NumberInput {...field} type="amount" min={1} isRequired>
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                )}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Envelope</FormLabel>
-              <Select
-                placeholder="Select option"
-                isRequired
-                {...register("envelopeName", { required: true })}
+          {canRenderForm && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl id="name">
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="name"
+                  isRequired
+                  {...register("name", { required: true })}
+                />
+              </FormControl>
+              <FormControl id="amount">
+                <FormLabel>Amount</FormLabel>
+                <Controller
+                  name="amount"
+                  control={control}
+                  defaultValue={1000}
+                  rules={{ required: true, min: 1 }}
+                  render={({ field }) => (
+                    <NumberInput {...field} type="amount" min={1} isRequired>
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  )}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Envelope</FormLabel>
+                <Select
+                  placeholder="Select option"
+                  isRequired
+                  {...register("envelopeName", { required: true })}
+                >
+                  {envelopes?.map((envelope) => (
+                    <option key={envelope.id} value={envelope.name}>
+                      {envelope.name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Date</FormLabel>
+                <DatePicker
+                  value={date}
+                  onChange={(newDate) => {
+                    setDate(newDate);
+                  }}
+                />
+              </FormControl>
+              <Button
+                mt={4}
+                bgColor="tomato"
+                textColor="white"
+                type="submit"
+                isLoading={mutation.isLoading}
               >
-                <option value="Disposable Income">Disposable Income</option>
-                <option value="Education">Education</option>
-                <option value="Clothes">Clothes</option>
-                <option value="Presents">Presents</option>
-                <option value="Transportation">Transportation</option>
-                <option value="Investments">Investments</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Date</FormLabel>
-              <DatePicker
-                value={date}
-                onChange={(newDate) => {
-                  setDate(newDate);
-                }}
-              />
-            </FormControl>
-            <Button
-              mt={4}
-              bgColor="tomato"
-              textColor="white"
-              type="submit"
-              isLoading={mutation.isLoading}
-            >
-              Submit
-            </Button>
-          </form>
+                Submit
+              </Button>
+            </form>
+          )}
         </Stack>
       </Center>
     </Layout>
