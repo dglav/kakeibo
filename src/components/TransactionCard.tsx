@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { Box, Heading, HStack, IconButton, Text } from "@chakra-ui/react";
 import { Transaction } from "services/transactions.service";
 import { EditIcon } from "@chakra-ui/icons";
+import Link from "next/link";
 
 type Props = {
   transaction: Transaction;
@@ -19,7 +20,9 @@ const TransactionCard = ({ transaction }: Props): React.ReactElement => {
           </Text>
           <Text>Date: {format(new Date(transaction.date), "yyyy/MM/dd")}</Text>
         </Box>
-        <IconButton aria-label="Search database" icon={<EditIcon />} />
+        <Link href={`/transactions/edit/${transaction.id}`} passHref={true}>
+          <IconButton aria-label="Search database" icon={<EditIcon />} />
+        </Link>
       </HStack>
     </Box>
   );
