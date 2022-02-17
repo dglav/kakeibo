@@ -26,6 +26,7 @@ export const Layout = ({ children }: Props): React.ReactElement => {
       templateRows="auto 1fr"
       gap={0}
       templateAreas={`"header" "main"`}
+      id="page-root"
     >
       <GridItem gridArea="header">
         <Heading
