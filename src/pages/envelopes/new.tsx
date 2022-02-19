@@ -33,7 +33,7 @@ const AddEnvelopePage: NextPage = () => {
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      router.push("/");
+      router.push("/?defaultTab=envelopes");
     } else if (mutation.isError) {
       window.alert("failed writing data");
     }

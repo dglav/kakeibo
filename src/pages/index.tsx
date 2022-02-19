@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import NextLink from "next/link";
 import {
   Box,
@@ -18,13 +18,31 @@ import { FloatingAddButton } from "../components/FloatingAddButton";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-const Home: NextPage = () => {
-  const { result } = useUser();
+const getTabIndex = (tab: string | string[]): number => {
+  switch (tab) {
+    case "envelopes":
+      return 1;
+    case "transactions":
+    default:
+      return 0;
+  }
+};
+
+type Props = {
+  defaultTab: string | string[];
+};
+
+const Home: NextPage<Props> = ({ defaultTab }) => {
   const router = useRouter();
+  const [tabIndex, setTabIndex] = useState<number>(getTabIndex(defaultTab));
+
+  const { result } = useUser();
+
   const [isAddEnvelopeButtonShown, setIsAddEnvelopButtonShown] =
     useState(false);
 
   const onChangeTabs = (tabIndex: number) => {
+    setTabIndex(tabIndex);
     if (tabIndex === 1) {
       setIsAddEnvelopButtonShown(true);
       return;
@@ -46,6 +64,7 @@ const Home: NextPage = () => {
         <Tabs
           isFitted
           variant="enclosed"
+          index={tabIndex}
           onChange={(index) => onChangeTabs(index)}
         >
           <TabList mb="1em">
@@ -84,5 +103,17 @@ const Home: NextPage = () => {
     </Layout>
   );
 };
+
+type ServerSideProps = {
+  props: Props;
+};
+
+export async function getServerSideProps(
+  context: NextPageContext
+): Promise<ServerSideProps> {
+  return {
+    props: { defaultTab: context.query.defaultTab ?? "transactions" },
+  };
+}
 
 export default Home;
