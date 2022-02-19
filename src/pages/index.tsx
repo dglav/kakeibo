@@ -14,9 +14,23 @@ import { Layout } from "components/layout";
 import { TransactionList } from "components/TransactionList";
 import { EnvelopeList } from "components/EnvelopeList";
 import { useUser } from "hooks/useUser";
+import { FloatingAddButton } from "../components/FloatingAddButton";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const { result } = useUser();
+  const router = useRouter();
+  const [isAddEnvelopeButtonShown, setIsAddEnvelopButtonShown] =
+    useState(false);
+
+  const onChangeTabs = (tabIndex: number) => {
+    if (tabIndex === 1) {
+      setIsAddEnvelopButtonShown(true);
+      return;
+    }
+    setIsAddEnvelopButtonShown(false);
+  };
 
   if (result.isLoading) {
     return (
@@ -29,7 +43,11 @@ const Home: NextPage = () => {
   if (result.isSuccess) {
     return (
       <Layout>
-        <Tabs isFitted variant="enclosed">
+        <Tabs
+          isFitted
+          variant="enclosed"
+          onChange={(index) => onChangeTabs(index)}
+        >
           <TabList mb="1em">
             <Tab>Purchases</Tab>
             <Tab>Envelopes</Tab>
@@ -45,6 +63,12 @@ const Home: NextPage = () => {
             </TabPanel>
             <TabPanel>
               <EnvelopeList />
+              <FloatingAddButton
+                isShown={isAddEnvelopeButtonShown}
+                onClick={() => {
+                  router.push("envelopes/new");
+                }}
+              />
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -54,7 +78,9 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <Box>Log in to see transactions</Box>
+      <Center>
+        <Box>Log in to see transactions</Box>
+      </Center>
     </Layout>
   );
 };

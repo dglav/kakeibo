@@ -36,6 +36,15 @@ export async function post(
   });
 }
 
+export async function patch(
+  path: string,
+  payload: any
+): Promise<AxiosResponse<any, any>> {
+  return axios.patch(`${BASE_URL}/${path}`, payload).catch((error) => {
+    return Promise.reject(error);
+  });
+}
+
 export function saveToken(token: string) {
   localStorage.setItem("token", token);
 }
