@@ -16,9 +16,11 @@ import { EnvelopeList } from "components/EnvelopeList";
 import { useUser } from "hooks/useUser";
 import { FloatingAddButton } from "../components/FloatingAddButton";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const { result } = useUser();
+  const router = useRouter();
   const [isAddEnvelopeButtonShown, setIsAddEnvelopButtonShown] =
     useState(false);
 
@@ -63,7 +65,9 @@ const Home: NextPage = () => {
               <EnvelopeList />
               <FloatingAddButton
                 isShown={isAddEnvelopeButtonShown}
-                onClick={() => console.log("clicked!")}
+                onClick={() => {
+                  router.push("envelopes/new");
+                }}
               />
             </TabPanel>
           </TabPanels>
