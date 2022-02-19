@@ -34,7 +34,7 @@ const SignInPage: NextPage = () => {
 
   useEffect(() => {
     if (result.isSuccess) {
-      router.push("/");
+      router.back();
     }
   }, [router, result.isSuccess]);
 
