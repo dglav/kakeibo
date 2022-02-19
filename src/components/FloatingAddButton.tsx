@@ -31,7 +31,7 @@ export const FloatingAddButton = ({ isShown, onClick }: Props) => {
           right="48px"
           bottom="48px"
         >
-          <AddIcon w="1.4em" h="1.4em" />
+          <AddIcon w="1.4em" h="1.4em" color="white" />
         </Box>,
         document.getElementById("document-root") as HTMLElement
       )
