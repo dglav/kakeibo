@@ -1,4 +1,5 @@
 import { deleteRequest, get, post } from "./base-http.service";
+import { TransactionCurrency } from "./commonTypes";
 
 export type Envelope = {
   id: string;
@@ -7,6 +8,9 @@ export type Envelope = {
 
 export type AddEnvelopeDto = {
   name: string;
+  description: string;
+  amount: number;
+  currency: TransactionCurrency;
 };
 
 export async function getEnvelopes(): Promise<Envelope[]> {
