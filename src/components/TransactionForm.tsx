@@ -17,7 +17,6 @@ import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { useRouter } from "next/router";
 import { Envelope } from "../services/envelopes.service";
-import { Transaction } from "../services/transactions.service";
 
 export type TransactionFormValues = {
   type: string;
@@ -84,6 +83,7 @@ export const TransactionForm = ({
             {...register("name", { required: true })}
           />
         </FormControl>
+
         <FormControl id="amount">
           <FormLabel>Amount</FormLabel>
           <Controller
@@ -102,6 +102,7 @@ export const TransactionForm = ({
             )}
           />
         </FormControl>
+
         <FormControl>
           <FormLabel>Envelope</FormLabel>
           <Select
@@ -116,6 +117,7 @@ export const TransactionForm = ({
             ))}
           </Select>
         </FormControl>
+
         <FormControl>
           <FormLabel>Date</FormLabel>
           <DatePicker
@@ -125,6 +127,7 @@ export const TransactionForm = ({
             }}
           />
         </FormControl>
+
         <Button
           mt={4}
           bgColor="tomato"
