@@ -5,7 +5,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Box,
   Button,
+  Heading,
   Text,
 } from "@chakra-ui/react";
 import { Envelope } from "../../services/envelopes.service";
@@ -39,7 +41,10 @@ export const EnvelopeCard = ({ envelope }: Props): React.ReactElement => {
           mutation.mutate(envelope.id);
         }}
       >
-        <Text>{envelope.name}</Text>
+        <Box>
+          <Heading pb={2}>{envelope.name}</Heading>
+          <Text>Amount: {envelope.amount}</Text>
+        </Box>
       </Card>
 
       <AlertDialog

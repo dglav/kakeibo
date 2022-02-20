@@ -4,6 +4,9 @@ import { TransactionCurrency } from "./commonTypes";
 export type Envelope = {
   id: string;
   name: string;
+  description: string;
+  amount: number;
+  currency: string;
 };
 
 export type AddEnvelopeDto = {
