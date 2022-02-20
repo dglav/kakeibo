@@ -45,6 +45,15 @@ export async function patch(
   });
 }
 
+export async function deleteRequest(
+  path: string,
+  payload?: any
+): Promise<AxiosResponse<any, any>> {
+  return axios.delete(`${BASE_URL}/${path}`, payload).catch((error) => {
+    return Promise.reject(error);
+  });
+}
+
 export function saveToken(token: string) {
   localStorage.setItem("token", token);
 }

@@ -1,8 +1,7 @@
 import { get, post, patch } from "./base-http.service";
+import { TransactionCurrency } from "./commonTypes";
 
 type TransactionType = "DEPOSIT" | "WITHDRAWL";
-
-type TransactionCurrency = "US" | "JPY";
 
 export type Transaction = {
   id: string;

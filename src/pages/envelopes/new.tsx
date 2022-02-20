@@ -8,6 +8,8 @@ import {
   FormLabel,
   Input,
   Button,
+  Select,
+  Textarea,
 } from "@chakra-ui/react";
 import { AddEnvelopeDto } from "services/envelopes.service";
 import { Layout } from "components/layout";
@@ -15,27 +17,27 @@ import { useAddEnvelopeMutation } from "hooks/envelopes.hooks";
 import { useRouter } from "next/router";
 import { withAuthentication } from "../../containers/withAuthentication";
 
-type EnvelopeForm = {
-  name: string;
-};
-
 const AddEnvelopePage: NextPage = () => {
   const { register, handleSubmit } = useForm();
   const mutation = useAddEnvelopeMutation();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<EnvelopeForm> = (data) => {
+  const onSubmit: SubmitHandler<AddEnvelopeDto> = (data) => {
     const addEnvelopeDto: AddEnvelopeDto = {
       name: data.name,
+      description: data.description,
+      amount: data.amount,
+      currency: data.currency,
     };
     mutation.mutate(addEnvelopeDto);
   };
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      router.push("/");
+      router.push("/?defaultTab=envelopes");
     } else if (mutation.isError) {
       window.alert("failed writing data");
+      mutation.reset();
     }
   }, [mutation, router]);
 
@@ -52,6 +54,28 @@ const AddEnvelopePage: NextPage = () => {
                 {...register("name", { required: true })}
               />
             </FormControl>
+
+            <FormControl id="amount">
+              <FormLabel>Amount</FormLabel>
+              <Input
+                type="number"
+                isRequired
+                {...register("amount", { required: true })}
+              />
+            </FormControl>
+
+            <FormControl id="currency">
+              <FormLabel>Currency</FormLabel>
+              <Select isRequired {...register("currency", { required: true })}>
+                <option value="JPY">yen</option>
+              </Select>
+            </FormControl>
+
+            <FormControl id="description">
+              <FormLabel>Description</FormLabel>
+              <Textarea defaultValue="" {...register("description")} />
+            </FormControl>
+
             <Button
               mt={4}
               bgColor="tomato"
