@@ -3,6 +3,7 @@ import {
   useMutation,
   UseMutationResult,
   useQuery,
+  useQueryClient,
 } from "react-query";
 import {
   addEnvelope,
@@ -31,5 +32,11 @@ export function useDeleteEnvelopeMutation(): UseMutationResult<
   string,
   void
 > {
-  return useMutation((envelopeId) => deleteEnvelope(envelopeId));
+  const queryClient = useQueryClient();
+
+  return useMutation((envelopeId) => deleteEnvelope(envelopeId), {
+    onSuccess: () => {
+      queryClient.refetchQueries("envelopes");
+    },
+  });
 }
