@@ -7,7 +7,7 @@ import {
 } from "react-query";
 import {
   addEnvelope,
-  AddEnvelopeDto,
+  EnvelopeDto,
   deleteEnvelope,
   Envelope,
   getEnvelopes,
@@ -20,7 +20,7 @@ export const useGetEnvelopes = (): QueryObserverResult<Envelope[], any> => {
 export function useAddEnvelopeMutation(): UseMutationResult<
   Envelope,
   any,
-  AddEnvelopeDto,
+  EnvelopeDto,
   void
 > {
   return useMutation((addEnvelopeDto) => addEnvelope(addEnvelopeDto));

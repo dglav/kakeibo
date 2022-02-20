@@ -9,7 +9,7 @@ export type Envelope = {
   currency: string;
 };
 
-export type AddEnvelopeDto = {
+export type EnvelopeDto = {
   name: string;
   description: string;
   amount: number;
@@ -21,10 +21,8 @@ export async function getEnvelopes(): Promise<Envelope[]> {
   return response.data;
 }
 
-export async function addEnvelope(
-  addEnvelopeDto: AddEnvelopeDto
-): Promise<Envelope> {
-  const response = await post("envelopes", addEnvelopeDto);
+export async function addEnvelope(envelopeDto: EnvelopeDto): Promise<Envelope> {
+  const response = await post("envelopes", envelopeDto);
   return response.data;
 }
 
