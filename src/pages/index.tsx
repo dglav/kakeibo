@@ -38,8 +38,9 @@ const Home: NextPage<Props> = ({ defaultTab }) => {
 
   const { result } = useUser();
 
-  const [isAddEnvelopeButtonShown, setIsAddEnvelopButtonShown] =
-    useState(false);
+  const [isAddEnvelopeButtonShown, setIsAddEnvelopButtonShown] = useState(
+    tabIndex === 1 ? true : false
+  );
 
   const onChangeTabs = (tabIndex: number) => {
     setTabIndex(tabIndex);
