@@ -5,19 +5,23 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Box,
   Button,
+  Heading,
   Text,
 } from "@chakra-ui/react";
 import { Envelope } from "../../services/envelopes.service";
 import { Card } from "../Card";
 import { useDeleteEnvelopeMutation } from "../../hooks/envelopes.hooks";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 type Props = {
   envelope: Envelope;
 };
 
 export const EnvelopeCard = ({ envelope }: Props): React.ReactElement => {
+  const router = useRouter();
   const mutation = useDeleteEnvelopeMutation();
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => {
@@ -35,11 +39,17 @@ export const EnvelopeCard = ({ envelope }: Props): React.ReactElement => {
   return (
     <>
       <Card
+        onClickEdit={() => {
+          router.push(`envelopes/update/${envelope.id}`);
+        }}
         onClickDelete={() => {
           mutation.mutate(envelope.id);
         }}
       >
-        <Text>{envelope.name}</Text>
+        <Box>
+          <Heading pb={2}>{envelope.name}</Heading>
+          <Text>Amount: {envelope.amount}</Text>
+        </Box>
       </Card>
 
       <AlertDialog

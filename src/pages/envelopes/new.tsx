@@ -1,29 +1,20 @@
-import { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import type { NextPage } from "next";
-import {
-  Center,
-  Stack,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Select,
-  Textarea,
-} from "@chakra-ui/react";
-import { AddEnvelopeDto } from "services/envelopes.service";
 import { Layout } from "components/layout";
-import { useAddEnvelopeMutation } from "hooks/envelopes.hooks";
-import { useRouter } from "next/router";
 import { withAuthentication } from "../../containers/withAuthentication";
+import { Center } from "@chakra-ui/react";
+import { EnvelopeForm } from "../../components/EnvelopeForm";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { SubmitHandler } from "react-hook-form";
+import { useAddEnvelopeMutation } from "../../hooks/envelopes.hooks";
+import { EnvelopeDto } from "../../services/envelopes.service";
 
 const AddEnvelopePage: NextPage = () => {
-  const { register, handleSubmit } = useForm();
-  const mutation = useAddEnvelopeMutation();
   const router = useRouter();
+  const mutation = useAddEnvelopeMutation();
 
-  const onSubmit: SubmitHandler<AddEnvelopeDto> = (data) => {
-    const addEnvelopeDto: AddEnvelopeDto = {
+  const onSubmit: SubmitHandler<EnvelopeDto> = (data) => {
+    const addEnvelopeDto: EnvelopeDto = {
       name: data.name,
       description: data.description,
       amount: data.amount,
@@ -44,49 +35,10 @@ const AddEnvelopePage: NextPage = () => {
   return (
     <Layout>
       <Center mt="4">
-        <Stack w="100%">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl id="name">
-              <FormLabel>Name</FormLabel>
-              <Input
-                type="name"
-                isRequired
-                {...register("name", { required: true })}
-              />
-            </FormControl>
-
-            <FormControl id="amount">
-              <FormLabel>Amount</FormLabel>
-              <Input
-                type="number"
-                isRequired
-                {...register("amount", { required: true })}
-              />
-            </FormControl>
-
-            <FormControl id="currency">
-              <FormLabel>Currency</FormLabel>
-              <Select isRequired {...register("currency", { required: true })}>
-                <option value="JPY">yen</option>
-              </Select>
-            </FormControl>
-
-            <FormControl id="description">
-              <FormLabel>Description</FormLabel>
-              <Textarea defaultValue="" {...register("description")} />
-            </FormControl>
-
-            <Button
-              mt={4}
-              bgColor="tomato"
-              textColor="white"
-              type="submit"
-              isLoading={mutation.isLoading}
-            >
-              Submit
-            </Button>
-          </form>
-        </Stack>
+        <EnvelopeForm
+          onSubmit={(envelope) => onSubmit(envelope)}
+          isLoading={mutation.isLoading}
+        />
       </Center>
     </Layout>
   );
