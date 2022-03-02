@@ -7,8 +7,8 @@ import { useUser } from "../hooks/useUser";
 
 export const withAuthentication = (
   WrappedPage: NextPage
-): (() => React.ReactElement) => {
-  const RequiresAuthentication = (): React.ReactElement => {
+): ((props: any) => React.ReactElement) => {
+  const RequiresAuthentication = (props: any): React.ReactElement => {
     const { result } = useUser();
     const router = useRouter();
 
@@ -17,7 +17,7 @@ export const withAuthentication = (
     }, [result, router]);
 
     return result.isSuccess ? (
-      <WrappedPage />
+      <WrappedPage {...props} />
     ) : (
       <Layout>
         <Box>Loading...</Box>

@@ -1,4 +1,4 @@
-import { deleteRequest, get, post } from "./base-http.service";
+import { deleteRequest, get, patch, post } from "./base-http.service";
 import { TransactionCurrency } from "./commonTypes";
 
 export type Envelope = {
@@ -16,13 +16,30 @@ export type EnvelopeDto = {
   currency: TransactionCurrency;
 };
 
+export type UpdateEnvelopeDto = EnvelopeDto & {
+  id: string;
+};
+
 export async function getEnvelopes(): Promise<Envelope[]> {
   const response = await get("envelopes");
   return response.data;
 }
 
+export async function getEnvelope(id: string): Promise<Envelope> {
+  const response = await get(`envelopes/${id}`);
+  return response.data;
+}
+
 export async function addEnvelope(envelopeDto: EnvelopeDto): Promise<Envelope> {
   const response = await post("envelopes", envelopeDto);
+  return response.data;
+}
+
+export async function updateEnvelope(
+  updateEnvelopeDto: UpdateEnvelopeDto
+): Promise<Envelope> {
+  const { id, ...envelopeDto } = updateEnvelopeDto;
+  const response = await patch(`envelopes/${id}`, envelopeDto);
   return response.data;
 }
 

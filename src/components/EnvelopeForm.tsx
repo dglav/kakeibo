@@ -7,16 +7,18 @@ import {
   Button,
   Stack,
 } from "@chakra-ui/react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { EnvelopeDto } from "../services/envelopes.service";
+import { useForm } from "react-hook-form";
+import { Envelope, EnvelopeDto } from "../services/envelopes.service";
 
 type Props = {
   onSubmit: (envelope: EnvelopeDto) => void;
   isLoading: boolean;
+  initialValues?: Envelope;
 };
 
-export const EnvelopeForm = ({ onSubmit, isLoading }: Props) => {
-  const { register, handleSubmit } = useForm();
+export const EnvelopeForm = ({ onSubmit, isLoading, initialValues }: Props) => {
+  console.log({ initialValues });
+  const { register, handleSubmit } = useForm({ defaultValues: initialValues });
 
   return (
     <Stack w="100%">
