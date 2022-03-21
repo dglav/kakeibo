@@ -6,7 +6,17 @@ import {
   theme,
   Grid,
   GridItem,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  IconButton,
 } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { useUser } from "hooks/useUser";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -39,25 +49,42 @@ export const Layout = ({ children }: Props): React.ReactElement => {
           <Link href="/" passHref>
             <Text cursor="pointer">Money Manager</Text>
           </Link>
-          {result.isSuccess ? (
-            <Button
-              bg={theme.colors.green[600]}
-              onClick={() => {
-                signOut();
-              }}
-            >
-              Sign Out
-            </Button>
-          ) : (
-            <Button
-              bg={theme.colors.green[600]}
-              onClick={() => {
-                router.push("/signin");
-              }}
-            >
-              Sign In
-            </Button>
-          )}
+
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              icon={<HamburgerIcon />}
+              background="none"
+              variant="outline"
+              _active={{ background: theme.colors.green[600] }}
+              _hover={{ background: theme.colors.green[600] }}
+            />
+            <MenuList>
+              {result.isSuccess ? (
+                <MenuItem
+                  color="black"
+                  _focus={{ background: theme.colors.green[300] }}
+                  _hover={{ background: theme.colors.green[300] }}
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  color="black"
+                  _focus={{ background: theme.colors.green[300] }}
+                  _hover={{ background: theme.colors.green[300] }}
+                  onClick={() => {
+                    router.push("/signin");
+                  }}
+                >
+                  Sign In
+                </MenuItem>
+              )}
+            </MenuList>
+          </Menu>
         </Heading>
       </GridItem>
       <GridItem overflow="auto" gridArea="main">
