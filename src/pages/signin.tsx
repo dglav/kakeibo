@@ -10,7 +10,7 @@ import {
   Stack,
   theme,
 } from "@chakra-ui/react";
-import { Layout } from "components/layout";
+import { Layout } from "components/Layout";
 import { useForm } from "react-hook-form";
 import { useUser } from "hooks/useUser";
 

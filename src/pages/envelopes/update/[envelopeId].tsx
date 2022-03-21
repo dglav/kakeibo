@@ -3,7 +3,7 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { Layout } from "components/layout";
+import { Layout } from "components/Layout";
 import { withAuthentication } from "../../../containers/withAuthentication";
 import { Center } from "@chakra-ui/react";
 import { EnvelopeForm } from "../../../components/EnvelopeForm";
