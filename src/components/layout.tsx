@@ -72,16 +72,29 @@ export const Layout = ({ children }: Props): React.ReactElement => {
                   Sign Out
                 </MenuItem>
               ) : (
-                <MenuItem
-                  color="black"
-                  _focus={{ background: theme.colors.green[300] }}
-                  _hover={{ background: theme.colors.green[300] }}
-                  onClick={() => {
-                    router.push("/signin");
-                  }}
-                >
-                  Sign In
-                </MenuItem>
+                <>
+                  <MenuItem
+                    color="black"
+                    _focus={{ background: theme.colors.green[300] }}
+                    _hover={{ background: theme.colors.green[300] }}
+                    onClick={() => {
+                      router.push("/signin");
+                    }}
+                  >
+                    Sign In
+                  </MenuItem>
+
+                  <MenuItem
+                    color="black"
+                    _focus={{ background: theme.colors.green[300] }}
+                    _hover={{ background: theme.colors.green[300] }}
+                    onClick={() => {
+                      router.push("/register");
+                    }}
+                  >
+                    Register
+                  </MenuItem>
+                </>
               )}
             </MenuList>
           </Menu>

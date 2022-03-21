@@ -7,12 +7,17 @@ import {
 } from "../services/auth.service";
 
 export function useUser(): {
+  register: (registerDto: any) => Promise<void>;
   signIn: (signInCredentialsDto: SignInCredentialsDto) => Promise<void>;
   signOut: () => void;
   result: UseQueryResult<any, unknown>;
 } {
   const queryClient = useQueryClient();
   const result = useQuery("user", getUser, { retry: 1 });
+
+  const handleRegister = async () => {
+    console.log("register user");
+  };
 
   const handleSignOut = async () => {
     signOut();
@@ -24,5 +29,10 @@ export function useUser(): {
     await result.refetch();
   };
 
-  return { result, signIn: handleSignIn, signOut: handleSignOut };
+  return {
+    result,
+    register: handleRegister,
+    signIn: handleSignIn,
+    signOut: handleSignOut,
+  };
 }
