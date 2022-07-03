@@ -1,22 +1,23 @@
 import { useQuery, useQueryClient, UseQueryResult } from "react-query";
 import {
   getUser,
+  register,
   signIn,
-  SignInCredentialsDto,
+  CredentialsDto,
   signOut,
 } from "../services/auth.service";
 
 export function useUser(): {
-  register: (registerDto: any) => Promise<void>;
-  signIn: (signInCredentialsDto: SignInCredentialsDto) => Promise<void>;
+  register: (credentialsDto: CredentialsDto) => Promise<void>;
+  signIn: (credentialsDto: CredentialsDto) => Promise<void>;
   signOut: () => void;
   result: UseQueryResult<any, unknown>;
 } {
   const queryClient = useQueryClient();
   const result = useQuery("user", getUser, { retry: 1 });
 
-  const handleRegister = async () => {
-    console.log("register user");
+  const handleRegister = async (credentialsDto: CredentialsDto) => {
+    register(credentialsDto);
   };
 
   const handleSignOut = async () => {
@@ -24,8 +25,8 @@ export function useUser(): {
     await queryClient.resetQueries();
   };
 
-  const handleSignIn = async (signInCredentialsDto: SignInCredentialsDto) => {
-    await signIn(signInCredentialsDto);
+  const handleSignIn = async (credentialsDto: CredentialsDto) => {
+    await signIn(credentialsDto);
     await result.refetch();
   };
 

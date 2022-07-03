@@ -7,7 +7,7 @@ import {
   TransactionFormValues,
 } from "../../components/TransactionForm";
 import { Center } from "@chakra-ui/react";
-import { Layout } from "../../components/layout";
+import { Layout } from "../../components/Layout";
 import { useGetEnvelopes } from "../../hooks/envelopes.hooks";
 import { withAuthentication } from "../../containers/withAuthentication";
 

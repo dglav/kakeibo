@@ -43,7 +43,7 @@ const RegisterPage: NextPage = () => {
       });
       return;
     }
-    registerUser(formData);
+    registerUser({ username: formData.username, password: formData.password });
   };
 
   useEffect(() => {

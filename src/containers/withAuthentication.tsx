@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { useUser } from "../hooks/useUser";
 
 export const withAuthentication = (

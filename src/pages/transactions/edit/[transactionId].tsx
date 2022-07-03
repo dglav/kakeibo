@@ -10,7 +10,7 @@ import {
 } from "../../../components/TransactionForm";
 import { useRouter } from "next/router";
 import { Center } from "@chakra-ui/react";
-import { Layout } from "../../../components/layout";
+import { Layout } from "../../../components/Layout";
 import { useGetEnvelopes } from "../../../hooks/envelopes.hooks";
 
 const convertToFormValues = (
