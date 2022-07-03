@@ -30,11 +30,6 @@ export async function getEnvelope(id: string): Promise<Envelope> {
   return response.data;
 }
 
-export async function getEnvelopeByName(name: string): Promise<Envelope> {
-  const response = await get(`envelopes/${name}`);
-  return response.data;
-}
-
 export async function addEnvelope(envelopeDto: EnvelopeDto): Promise<Envelope> {
   const response = await post("envelopes", envelopeDto);
   return response.data;

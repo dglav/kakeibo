@@ -40,7 +40,7 @@ export const EnvelopeCard = ({ envelope }: Props): React.ReactElement => {
     <>
       <Card
         onClickEdit={() => {
-          router.push(`envelopes/update/${envelope.id}`);
+          router.push(`envelopes/edit/${envelope.id}`);
         }}
         onClickDelete={() => {
           mutation.mutate(envelope.id);

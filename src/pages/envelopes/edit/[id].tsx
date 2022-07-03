@@ -16,23 +16,23 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const envelopeId = context.query.envelopeId as string;
+  const id = context.query.id as string;
 
   return {
-    props: { envelopeId },
+    props: { id },
   };
 };
 
 const UpdateEnvelopePage: NextPage = ({
-  envelopeId,
+  id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { data: envelope } = useGetEnvelope(envelopeId);
+  const { data: envelope } = useGetEnvelope(id);
   const mutation = useUpdateEnvelopeMutation();
   const router = useRouter();
 
   const onSubmit = (envelope: EnvelopeDto) => {
     mutation.mutate({
-      id: envelopeId,
+      id,
       ...envelope,
     });
   };

@@ -26,12 +26,6 @@ export const useGetEnvelope = (
   return useQuery(["envelope", { id }], () => getEnvelope(id));
 };
 
-export const useGetEnvelopeByName = (
-  name: string
-): QueryObserverResult<Envelope, any> => {
-  return useQuery(["envelope", { name }], () => getEnvelopeByName(name));
-};
-
 export function useAddEnvelopeMutation(): UseMutationResult<
   Envelope,
   any,
