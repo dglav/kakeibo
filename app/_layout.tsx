@@ -64,6 +64,7 @@ export default function RootLayout() {
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <Stack>
         <Stack.Screen name="index" />
+        <Stack.Screen name="expenses" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

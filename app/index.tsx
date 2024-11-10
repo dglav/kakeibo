@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { View } from "react-native";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
@@ -12,12 +13,14 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Button variant="link">
-        <View className="flex-row gap-2 web:items-center">
-          <Text>Add an expense</Text>
-          <ArrowRight />
-        </View>
-      </Button>
+      <Link href="/expenses/new" asChild>
+        <Button variant="link">
+          <View className="flex-row gap-2 web:items-center">
+            <Text>Add an expense</Text>
+            <ArrowRight />
+          </View>
+        </Button>
+      </Link>
     </View>
   );
 }
