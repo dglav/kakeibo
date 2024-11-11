@@ -1,8 +1,6 @@
 import { Calendar, toDateId } from "@marceloterreiro/flash-calendar";
 import { useColorScheme } from "nativewind";
 
-const today = toDateId(new Date());
-
 type Props = {
   value: Date;
   onChange?: (selectedDate: Date) => void;
@@ -17,15 +15,17 @@ export function BasicCalendar({ value, onChange }: Props) {
     }
   };
 
+  const dateId = toDateId(value);
+
   return (
     <Calendar
       calendarActiveDateRanges={[
         {
-          startId: toDateId(value),
-          endId: toDateId(value),
+          startId: dateId,
+          endId: dateId,
         },
       ]}
-      calendarMonthId={today}
+      calendarMonthId={dateId}
       onCalendarDayPress={handleSelectDate}
       calendarColorScheme={colorScheme}
     />
