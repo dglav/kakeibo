@@ -4,7 +4,12 @@ import * as React from "react";
 export default function ExpensesLayout() {
   return (
     <Stack>
-      <Stack.Screen name="new" />
+      <Stack.Screen
+        name="new"
+        options={{
+          headerShown: true,
+        }}
+      />
     </Stack>
   );
 }

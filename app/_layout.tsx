@@ -8,6 +8,12 @@ import * as React from "react";
 import { Platform } from "react-native";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from "react-native-safe-area-context";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -60,12 +66,18 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="expenses" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+            <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+            <Stack>
+              <Stack.Screen name="index" />
+              <Stack.Screen name="expenses" options={{ headerShown: false }} />
+            </Stack>
+          </ThemeProvider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
