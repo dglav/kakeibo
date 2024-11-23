@@ -152,11 +152,14 @@ export default function AddExpensePage() {
             <BasicCalendar value={selectedDate} onChange={setSelectedDate} />
           </View>
           <View className="flex-row w-full">
-            <Button className="w-[50%]" onPress={handleCloseBottomSheetModal}>
+            <Button
+              className="w-[50%] rounded-none"
+              onPress={handleCloseBottomSheetModal}
+            >
               <Text>Cancel</Text>
             </Button>
             <Button
-              className="w-[50%]"
+              className="w-[50%] rounded-none"
               onPress={() => {
                 setValue("date", selectedDate);
                 handleCloseBottomSheetModal();
