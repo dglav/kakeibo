@@ -4,6 +4,7 @@ import BottomSheet, {
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useCallback, useRef, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { View } from "react-native";
@@ -36,6 +37,9 @@ export default function AddExpensePage() {
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const theme = useTheme();
+  console.log({ theme });
 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
@@ -136,8 +140,8 @@ export default function AddExpensePage() {
 
       <BottomSheetModal
         ref={bottomSheetModalRef}
-        backgroundStyle={{ backgroundColor: "black" }}
-        handleIndicatorStyle={{ backgroundColor: "white" }}
+        backgroundStyle={{ backgroundColor: theme.colors.background }}
+        handleIndicatorStyle={{ backgroundColor: theme.colors.text }}
         backdropComponent={renderBackdrop}
       >
         <BottomSheetView>
