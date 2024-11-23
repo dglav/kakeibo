@@ -36,10 +36,10 @@ export default function AddExpensePage() {
       date: new Date(),
     },
   });
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) =>
+    console.log("submit data", data);
 
   const theme = useTheme();
-  console.log({ theme });
 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 

@@ -1,6 +1,5 @@
 import "~/global.css";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
   DefaultTheme,
@@ -27,12 +26,10 @@ export {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
-  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const { colorScheme, isDarkColorScheme } = useColorScheme();
 
   React.useEffect(() => {
     (async () => {
-      const theme = await AsyncStorage.getItem("theme");
       if (Platform.OS === "web") {
         document.documentElement.style.colorScheme = colorScheme;
       } else {
@@ -42,10 +39,6 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     });
   }, []);
-
-  if (!isColorSchemeLoaded) {
-    return null;
-  }
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
